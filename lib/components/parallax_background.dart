@@ -20,4 +20,9 @@ class ParallaxBackground extends ParallaxComponent<MainGameScene> {
       velocityMultiplierDelta: Vector2(1.8, 1.0),
     );
   }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
 }

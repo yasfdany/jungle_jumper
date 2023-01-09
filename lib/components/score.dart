@@ -24,6 +24,7 @@ class Score extends TextComponent with HasGameRef<MainGameScene> {
   @override
   void update(double dt) {
     super.update(dt);
+
     score += 1 * dt;
     text = score.toInt().toString();
 

@@ -1,4 +1,7 @@
 class AssetAudio {
+	static const String hit = 'assets/audio/hit.wav';
+	static const String jump = 'assets/audio/jump.wav';
+	static const String jungleBgm = 'assets/audio/jungle_bgm.mp3';
 }
 
 class AssetImages {

@@ -1,10 +1,14 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:jungle_jumper/components/mushroom.dart';
 import 'package:jungle_jumper/components/score.dart';
 import 'package:jungle_jumper/r.dart';
 import 'package:jungle_jumper/scenes/main_game_scene.dart';
 import 'package:jungle_jumper/utils/extensions.dart';
+
+import '../main.dart';
+import '../state/main_game_state.dart';
 
 enum ManState {
   running,
@@ -14,6 +18,7 @@ enum ManState {
 
 class Man extends SpriteAnimationGroupComponent<ManState>
     with HasGameRef<MainGameScene>, CollisionCallbacks {
+  final mainGameState = getIt<MainGameState>();
   final double gravity = 1;
 
   final double initialJumpVelocity = -15.0;
@@ -91,17 +96,21 @@ class Man extends SpriteAnimationGroupComponent<ManState>
       }
 
       gameRef.camera.shake(intensity: 6);
+      FlameAudio.play(AssetAudio.hit.fileName, volume: 0.5);
     }
     super.onCollision(intersectionPoints, other);
   }
 
   void jump() {
-    if (current == ManState.jump || current == ManState.landing) {
+    if (current == ManState.jump ||
+        current == ManState.landing ||
+        mainGameState.isPause) {
       return;
     }
 
     current = ManState.jump;
     jumpVelocity = initialJumpVelocity - 8;
+    FlameAudio.play(AssetAudio.jump.fileName, volume: 0.5);
   }
 
   void reset() {
