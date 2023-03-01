@@ -17,7 +17,7 @@ class Land extends PositionComponent with HasGameRef<MainGameScene> {
   Future<void>? onLoad() async {
     super.onLoad();
     landSprite = await Sprite.load(AssetImages.land.fileName);
-    tileCount = (gameRef.size.x ~/ 128) + 1;
+    tileCount = (gameRef.size.x ~/ 128) + 2;
     y = gameRef.size.y;
 
     lands.addAll(generateLands());
