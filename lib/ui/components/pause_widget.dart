@@ -111,6 +111,7 @@ class PauseDialog extends StatelessWidget with GetItMixin {
                   text: 'Exit',
                   border: Border.all(color: Colors.black.withOpacity(0.1)),
                   onTap: () {
+                    FlameAudio.bgm.stop();
                     mainGameState.setPause(false);
                     NavHelper.pop();
                   },
