@@ -2,12 +2,12 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:jungle_jumper/scenes/main_game_scene.dart';
-import 'package:jungle_jumper/ui/pop_button.dart';
-import 'package:jungle_jumper/utils/nav_helper.dart';
 
-import '../main.dart';
-import '../state/main_game_state.dart';
+import '../../main.dart';
+import '../../scenes/main_game_scene.dart';
+import '../../state/main_game_state.dart';
+import '../../utils/nav_helper.dart';
+import 'pop_button.dart';
 
 class PauseWidget extends StatelessWidget with GetItMixin {
   final mainGameState = getIt<MainGameState>();
@@ -30,7 +30,7 @@ class PauseWidget extends StatelessWidget with GetItMixin {
               .animate(target: isPause ? 1 : 0)
               .scaleXY(
                 duration: const Duration(milliseconds: 500),
-                curve: Curves.elasticInOut,
+                curve: isPause ? Curves.elasticOut : Curves.elasticIn,
               )
               .fadeIn(duration: const Duration(milliseconds: 500)),
           Positioned(

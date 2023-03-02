@@ -1,4 +1,8 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:jungle_jumper/utils/extensions.dart';
+
+import '../../r.dart';
 
 class PopButton extends StatefulWidget {
   final String? text;
@@ -96,6 +100,7 @@ class PopButtonState extends State<PopButton>
       onTap: () {
         poppingAnimationController.animateTo(0.9).whenComplete(() {
           poppingAnimationController.animateTo(1).whenComplete(() {
+            FlameAudio.play(AssetAudio.tap.fileName, volume: 1);
             widget.onTap?.call();
           });
         });

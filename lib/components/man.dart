@@ -2,7 +2,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:jungle_jumper/components/mushroom.dart';
-import 'package:jungle_jumper/components/score.dart';
 import 'package:jungle_jumper/r.dart';
 import 'package:jungle_jumper/scenes/main_game_scene.dart';
 import 'package:jungle_jumper/utils/extensions.dart';
@@ -88,17 +87,19 @@ class Man extends SpriteAnimationGroupComponent<ManState>
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Mushroom) {
-      reset();
-      for (Component component in parent?.children ?? []) {
-        if (component is Mushroom) component.reset();
-        if (component is Score) component.reset();
-      }
-
-      gameRef.camera.shake(intensity: 6);
-      FlameAudio.play(AssetAudio.hit.fileName, volume: 0.5);
-    }
+    if (other is Mushroom) gameOver();
     super.onCollision(intersectionPoints, other);
+  }
+
+  void gameOver() {
+    gameRef.camera.shake(intensity: 6);
+    FlameAudio.play(AssetAudio.hit.fileName, volume: 0.5);
+    FlameAudio.bgm.stop();
+    game.pauseEngine();
+
+    mainGameState.setGameOver(true);
+    mainGameState.checkHighScore();
+    game.overlays.add('game_over');
   }
 
   void jump() {

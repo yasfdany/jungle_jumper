@@ -1,14 +1,14 @@
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
-import 'package:jungle_jumper/ui/pop_button.dart';
-import 'package:jungle_jumper/utils/extensions.dart';
 import 'package:jungle_jumper/utils/nav_helper.dart';
 
-import '../r.dart';
+import '../../main.dart';
+import '../../state/main_game_state.dart';
+import '../components/pop_button.dart';
 import 'main_game_screen.dart';
 
 class MainMenuScreen extends StatelessWidget {
-  const MainMenuScreen({super.key});
+  final mainGameState = getIt<MainGameState>();
+  MainMenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MainMenuScreen extends StatelessWidget {
                     text: 'Start Game',
                     textSize: 32,
                     onTap: () {
-                      FlameAudio.play(AssetAudio.jump.fileName, volume: 0.5);
+                      mainGameState.loadHighScore();
                       NavHelper.navigatePush(const MainGameScreen());
                     },
                   ),

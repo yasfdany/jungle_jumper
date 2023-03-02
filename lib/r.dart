@@ -1,7 +1,10 @@
 class AssetAudio {
+	static const String confetti = 'assets/audio/confetti.wav';
 	static const String hit = 'assets/audio/hit.wav';
 	static const String jump = 'assets/audio/jump.wav';
 	static const String jungleBgm = 'assets/audio/jungle_bgm.mp3';
+	static const String tap = 'assets/audio/tap.wav';
+	static const String win = 'assets/audio/win.wav';
 }
 
 class AssetImages {
