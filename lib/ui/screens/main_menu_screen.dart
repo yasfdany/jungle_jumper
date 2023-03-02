@@ -1,8 +1,10 @@
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:jungle_jumper/utils/nav_helper.dart';
 
 import '../../main.dart';
 import '../../state/main_game_state.dart';
+import '../components/forest_background.dart';
 import '../components/pop_button.dart';
 import 'main_game_screen.dart';
 
@@ -17,7 +19,7 @@ class MainMenuScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const ForestBackGround(),
+          GameWidget(game: ForestBackground()),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -36,29 +38,28 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ],
           ),
+          Positioned(
+            bottom: 32,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'Created by StudioCloud',
+                    style: TextStyle(
+                      fontFamily: 'monogram',
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
-    );
-  }
-}
-
-class ForestBackGround extends StatelessWidget {
-  const ForestBackGround({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        for (int i = 0; i < 5; i++)
-          Image.asset(
-            'assets/images/plx_${i + 1}.png',
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
-      ],
     );
   }
 }
