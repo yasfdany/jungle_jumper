@@ -18,13 +18,10 @@ enum ManState {
 class Man extends SpriteAnimationGroupComponent<ManState>
     with HasGameRef<MainGameScene>, CollisionCallbacks {
   final mainGameState = getIt<MainGameState>();
-  final double gravity = 1;
+  final double gravity = 60;
 
-  final double initialJumpVelocity = -15.0;
-  final double introDuration = 1500.0;
-  final double startXPosition = 50;
+  final double initialJumpVelocity = -900;
   double jumpVelocity = 0.0;
-
   double groundPos = 0;
 
   late SpriteAnimation runningAnimation;
@@ -71,7 +68,7 @@ class Man extends SpriteAnimationGroupComponent<ManState>
     }
 
     if (current == ManState.jump || current == ManState.landing) {
-      y += jumpVelocity;
+      y += jumpVelocity * dt;
       jumpVelocity += gravity;
       if (!jumpVelocity.isNegative) {
         current = ManState.landing;
@@ -92,9 +89,9 @@ class Man extends SpriteAnimationGroupComponent<ManState>
   }
 
   void gameOver() {
-    gameRef.camera.shake(intensity: 6);
     FlameAudio.play(AssetAudio.hit.fileName, volume: 0.5);
     FlameAudio.bgm.stop();
+    gameRef.camera.shake(intensity: 6);
     game.pauseEngine();
 
     mainGameState.setGameOver(true);
@@ -110,7 +107,7 @@ class Man extends SpriteAnimationGroupComponent<ManState>
     }
 
     current = ManState.jump;
-    jumpVelocity = initialJumpVelocity - 8;
+    jumpVelocity = initialJumpVelocity - 480;
     FlameAudio.play(AssetAudio.jump.fileName, volume: 0.5);
   }
 
